@@ -7,13 +7,13 @@ class CashRegister
         @total = 0
         @discount = discount
         @items = []
-        @last_item = 0
+        @item_prices = []
     end
 
     def add_item(item, price, quantitty = 1)
         @total += price * quantitty
         @items += [item] * quantitty
-        @last_item = price * quantitty
+        @item_prices << price * quantitty
     end
 
     def apply_discount
@@ -26,7 +26,8 @@ class CashRegister
 
     def void_last_transaction
         @items = @items.pop
-        @total -= @last_item
+        @total -= @item_prices[-1]
+        @item_prices = @item_prices.pop
         @items.length == 0 ? @total = 0.0 : nil
     end
 end
